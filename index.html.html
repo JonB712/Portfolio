@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jonas Buenaobra | AI Content Creator, Prompt Engineer and Customer Support</title>
+<meta name="description" content="Jonas Buenaobra is a remote AI-focused freelancer in the Philippines: generative AI content, prompt engineering, AI UGC ads, AI customer support and developing AI automation skills.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF1F5; --surface:#FFFFFF; --surface-2:#F6F8FB; --ink:#141C2E; --muted:#556074; --line:#D6DCE6;
+  --accent:#2B44D6; --accent-hover:#2236B0; --on-accent:#FFFFFF; --soft:#E3E8FF;
+  --hands:#2B44D6; --hands-bg:#E3E8FF; --built:#1C7454; --built-bg:#DCF1E7; --dev:#8C5A00; --dev-bg:#FAEDD2;
+  --prompt-bg:#111936; --prompt-ink:#DCE3FF; --prompt-dim:#7F8BB8; --prompt-key:#9DB0FF; --prompt-ok:#7FDDB3;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --radius-lg:22px; --radius:14px; --radius-sm:8px;
+  --wrap:1160px;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1220; --surface:#151C2D; --surface-2:#111827; --ink:#E8ECF5; --muted:#9BA6BC; --line:#263049;
+    --accent:#8D9CFF; --accent-hover:#A9B5FF; --on-accent:#0D1220; --soft:#1D2550;
+    --hands:#A9B5FF; --hands-bg:#1D2550; --built:#78D6AE; --built-bg:#11302A; --dev:#F0C46C; --dev-bg:#382A0E;
+    --prompt-bg:#0A0F1E; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1220; --surface:#151C2D; --surface-2:#111827; --ink:#E8ECF5; --muted:#9BA6BC; --line:#263049;
+  --accent:#8D9CFF; --accent-hover:#A9B5FF; --on-accent:#0D1220; --soft:#1D2550;
+  --hands:#A9B5FF; --hands-bg:#1D2550; --built:#78D6AE; --built-bg:#11302A; --dev:#F0C46C; --dev-bg:#382A0E;
+  --prompt-bg:#0A0F1E; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;overflow-x:hidden}
+img,svg{max-width:100%;display:block}
+a{color:var(--accent)}
+a:hover{color:var(--accent-hover)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;letter-spacing:-.02em}
+h2{font-size:clamp(2rem,4.2vw,3.1rem);font-weight:800}
+h3{font-size:1.3rem;font-weight:700;letter-spacing:-.01em}
+p{margin:0}
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--on-accent);padding:10px 14px;border-radius:8px;z-index:100}
+.skip:focus{left:12px}
+
+/* Header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.head-row{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{font-family:"Space Grotesk",var(--display);font-weight:700;font-size:16px;letter-spacing:.02em;color:var(--ink);text-decoration:none}
+.logo span{color:var(--accent)}
+.logo:hover{color:var(--ink)}
+.site-head nav ul{display:flex;list-style:none;margin:0;padding:0}
+.site-head nav ul li{margin-left:28px}
+.site-head nav ul a{color:var(--muted);font-size:14px;font-weight:500;text-decoration:none;transition:color .15s}
+.site-head nav ul a:hover{color:var(--ink)}
+.nav-cta{background:var(--accent);color:var(--on-accent);padding:8px 16px;border-radius:7px;font-size:13.5px;font-weight:600;text-decoration:none;white-space:nowrap}
+.nav-cta:hover{opacity:.9;color:var(--on-accent)}
+@media (max-width:640px){.site-head nav ul{display:none}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 1rem var(--body);text-decoration:none;padding:13px 22px;border-radius:12px;border:1.5px solid transparent;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-hover);color:var(--on-accent)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink)}
+
+/* Level badges */
+.lvl{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:600;padding:4px 10px;border-radius:999px;white-space:nowrap;line-height:1.3}
+.lvl::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.lvl-h{color:var(--hands);background:var(--hands-bg)}
+.lvl-b{color:var(--built);background:var(--built-bg)}
+.lvl-d{color:var(--dev);background:var(--dev-bg)}
+
+/* Sections */
+section{padding:clamp(72px,10vw,120px) 0}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 56px;align-items:end;margin-bottom:48px}
+.sec-head p{color:var(--muted);max-width:56ch}
+@media (max-width:820px){.sec-head{grid-template-columns:1fr}}
+.alt{background:var(--surface)}
+
+/* Hero */
+.hero{padding:clamp(48px,7vw,88px) 0 clamp(64px,8vw,104px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(36px,5vw,72px);align-items:center}
+.avail{display:inline-flex;align-items:center;gap:8px;font-size:.92rem;color:var(--muted);margin-bottom:22px}
+.avail i{width:9px;height:9px;border-radius:50%;background:var(--built);box-shadow:0 0 0 4px var(--built-bg)}
+.hero h1{font-size:clamp(3rem,7.6vw,5.9rem);font-weight:800;letter-spacing:-.045em;line-height:.95}
+.hero-role{font-family:var(--display);font-weight:500;font-size:clamp(1.25rem,2.3vw,1.65rem);line-height:1.3;margin:22px 0 18px;max-width:30ch;letter-spacing:-.01em}
+.hero-intro{color:var(--muted);max-width:52ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero-facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:30px;padding-top:22px;border-top:1px solid var(--line);font-size:.93rem;color:var(--muted)}
+.hero-facts b{color:var(--ink);font-weight:600}
+
+.prompt{background:var(--prompt-bg);color:var(--prompt-ink);border-radius:var(--radius-lg);padding:22px 22px 20px;font-family:var(--mono);font-size:.86rem;line-height:1.75;box-shadow:0 30px 60px -30px rgba(17,25,54,.55);position:relative;min-width:0}
+.prompt-top{display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:var(--body);font-size:.85rem;color:var(--prompt-dim);padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid rgba(157,176,255,.16)}
+.prompt-top strong{color:var(--prompt-ink);font-weight:600}
+.dots{display:flex;gap:6px}.dots span{width:10px;height:10px;border-radius:50%;background:rgba(157,176,255,.25)}
+.prompt pre{margin:0;white-space:pre-wrap;word-break:break-word;font:inherit;min-height:15.8em}
+.prompt .k{color:var(--prompt-key)}
+.prompt .c{color:var(--prompt-dim)}
+.caret{display:inline-block;width:.55em;height:1.1em;background:var(--prompt-key);vertical-align:-.18em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.prompt-foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid rgba(157,176,255,.16);font-family:var(--body);font-size:.85rem;color:var(--prompt-dim);opacity:0;transform:translateY(6px);transition:opacity .5s,transform .5s}
+.prompt-foot.show{opacity:1;transform:none}
+.prompt-foot .ok{color:var(--prompt-ok);font-weight:600}
+.prompt-caption{font-size:.85rem;color:var(--muted);margin-top:12px}
+@media (max-width:920px){.hero-grid{grid-template-columns:1fr}.prompt pre{min-height:0}}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(32px,6vw,80px)}
+.about-text p{font-size:1.15rem;line-height:1.7;max-width:60ch}
+.about-text p + p{margin-top:18px}
+.about-text p.lead{font-family:var(--display);font-size:clamp(1.4rem,2.4vw,1.8rem);line-height:1.3;font-weight:500;letter-spacing:-.01em}
+.method{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-lg);padding:28px}
+.method h3{font-size:1.1rem;margin-bottom:18px}
+.method ol{list-style:none;margin:0;padding:0;counter-reset:m}
+.method li{counter-increment:m;display:grid;grid-template-columns:34px 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.method li:first-child{border-top:0;padding-top:0}
+.method li::before{content:counter(m);width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:600;font-size:.85rem}
+.method b{display:block}
+.method span{color:var(--muted);font-size:.95rem}
+.legend{margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.legend h3{font-size:1rem;margin-bottom:12px}
+.legend dl{margin:0;display:grid;gap:10px}
+.legend div{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+.legend dd{margin:0;color:var(--muted);font-size:.93rem}
+@media (max-width:900px){.about-grid{grid-template-columns:1fr}}
+
+/* Skills */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.filter{font:600 .92rem var(--body);padding:9px 16px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.filter:hover{color:var(--ink);border-color:var(--ink)}
+.filter[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.skill-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.skill{display:grid;grid-template-columns:minmax(180px,.9fr) minmax(0,1.6fr) 150px;gap:8px 32px;align-items:baseline;padding:20px 4px;border-bottom:1px solid var(--line)}
+.skill h3{font-size:1.2rem}
+.skill p{color:var(--muted)}
+.skill .lvl{justify-self:end}
+.skill[hidden]{display:none}
+@media (max-width:760px){.skill{grid-template-columns:1fr auto}.skill p{grid-column:1/-1;grid-row:2}.skill .lvl{grid-column:2;grid-row:1}}
+
+/* Services */
+.services{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}
+.svc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;grid-column:span 2;display:flex;flex-direction:column;gap:12px}
+.svc.wide{grid-column:span 3}
+.svc.feature{grid-column:span 3;background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.svc.feature p,.svc.feature li{color:color-mix(in srgb,var(--bg) 78%,var(--ink))}
+.svc.feature .svc-ico{background:color-mix(in srgb,var(--bg) 14%,var(--ink));color:var(--bg)}
+.svc-ico{width:42px;height:42px;border-radius:12px;background:var(--soft);color:var(--accent);display:grid;place-items:center}
+.svc-ico svg{width:22px;height:22px}
+.svc p{color:var(--muted)}
+.svc ul{margin:4px 0 0;padding-left:18px;color:var(--muted);font-size:.95rem}
+.svc ul li{margin:3px 0}
+@media (max-width:1000px){.services{grid-template-columns:repeat(2,minmax(0,1fr))}.svc,.svc.wide,.svc.feature{grid-column:span 1}}
+@media (max-width:640px){.services{grid-template-columns:1fr}}
+
+/* Customer service */
+.cs-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,64px)}
+.channels{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 30px}
+.channel{display:flex;align-items:center;gap:10px;padding:10px 16px 10px 12px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);font-weight:600;font-size:.95rem}
+.channel svg{width:20px;height:20px;color:var(--accent)}
+.comp{list-style:none;margin:0;padding:0}
+.comp li{padding:16px 0;border-top:1px solid var(--line)}
+.comp li:last-child{border-bottom:1px solid var(--line)}
+.comp b{display:block;font-size:1.05rem;margin-bottom:3px}
+.comp span{color:var(--muted);font-size:.97rem}
+.cs-roles{display:grid;gap:16px;align-content:start}
+.cs-role{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.cs-role .when{font-size:.88rem;color:var(--muted);font-weight:600}
+.cs-role h3{margin:6px 0 4px}
+.cs-role .where{color:var(--muted);font-size:.95rem;margin-bottom:12px}
+.cs-role ul{margin:0;padding-left:18px}
+.cs-role li{margin:4px 0}
+.bridge{border-left:3px solid var(--accent);padding:6px 0 6px 18px;font-family:var(--display);font-size:1.2rem;line-height:1.4;font-weight:500}
+@media (max-width:900px){.cs-grid{grid-template-columns:1fr}}
+
+/* Automation */
+.auto{display:grid;gap:22px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:clamp(22px,3.5vw,38px)}
+.proj-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 20px;align-items:flex-start;margin-bottom:14px}
+.proj-head h3{font-size:clamp(1.35rem,2.4vw,1.75rem);max-width:28ch}
+.tools-line{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 18px}
+.tag{font-size:.82rem;font-weight:600;padding:4px 10px;border-radius:7px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink)}
+.proj > p{color:var(--muted);max-width:70ch}
+.flow{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;counter-reset:f}
+.flow li{counter-increment:f;position:relative;padding:0 10px 0 0}
+.flow li::before{content:counter(f);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:.9rem;position:relative;z-index:1}
+.flow li::after{content:"";position:absolute;top:16px;left:32px;right:0;height:2px;background:var(--line)}
+.flow li:last-child::after{display:none}
+.flow b{display:block;margin-top:12px;font-size:.95rem;line-height:1.3}
+.flow span{display:block;color:var(--muted);font-size:.85rem;margin-top:4px;line-height:1.4}
+@media (max-width:980px){
+  .flow{grid-template-columns:1fr;gap:0}
+  .flow li{display:grid;grid-template-columns:32px 1fr;column-gap:14px;padding:0 0 18px}
+  .flow li::before{grid-row:1/3}
+  .flow li::after{top:32px;bottom:0;left:15px;right:auto;width:2px;height:auto}
+  .flow b{margin-top:5px}
+}
+.two-col{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;margin-top:24px}
+.two-col h4{font:700 1rem var(--display);margin:0 0 10px}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.checks li{display:grid;grid-template-columns:20px 1fr;gap:10px;color:var(--muted)}
+.checks li::before{content:"";width:18px;height:18px;margin-top:3px;border-radius:50%;background:var(--built-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231C7454' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/12px no-repeat}
+@media (max-width:760px){.two-col{grid-template-columns:1fr}}
+.learning{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;background:var(--dev-bg);color:var(--ink);border-radius:var(--radius);padding:18px 22px}
+.learning b{color:var(--dev)}
+
+/* Portfolio */
+.works{display:grid;gap:24px}
+.work{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(22px,4vw,48px);align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:clamp(18px,3vw,30px)}
+.work:nth-child(even) .preview{order:2}
+.preview{border-radius:var(--radius);background:var(--prompt-bg);aspect-ratio:4/3;position:relative;overflow:hidden;display:grid;place-items:center;padding:22px}
+.preview svg{width:100%;height:100%}
+.work-body h3{font-size:clamp(1.35rem,2.4vw,1.7rem);margin-bottom:10px}
+.work-body > p{color:var(--muted);margin-bottom:16px}
+.focus{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.shows{font-size:.95rem;border-top:1px solid var(--line);padding-top:14px}
+.shows b{font-weight:600}
+@media (max-width:860px){.work{grid-template-columns:1fr}.work:nth-child(even) .preview{order:0}}
+.more-proj{margin-top:24px;color:var(--muted)}
+
+/* Tools */
+.toolgroups{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.tg{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.tg h3{font-size:1.1rem;margin-bottom:6px}
+.tg > p{color:var(--muted);font-size:.93rem;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:.92rem;font-weight:500;padding:6px 12px;border-radius:9px;background:var(--surface);border:1px solid var(--line)}
+.tool-note{margin-top:22px;color:var(--muted);max-width:75ch;font-size:.97rem}
+
+/* Experience */
+.exp-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(28px,5vw,64px)}
+.timeline{list-style:none;margin:0;padding:0;position:relative}
+.timeline::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tl{position:relative;padding:0 0 34px 38px}
+.tl::before{content:"";position:absolute;left:0;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--accent)}
+.tl.edu::before{border-color:var(--muted)}
+.tl .when{font-size:.88rem;font-weight:600;color:var(--muted)}
+.tl h3{margin:4px 0 2px}
+.tl .where{color:var(--muted);margin-bottom:10px}
+.tl ul{margin:0;padding-left:18px}
+.tl li{margin:5px 0}
+.tl p.d{margin-top:4px}
+.aside-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:18px}
+.aside-box h3{font-size:1.1rem;margin-bottom:12px}
+.aside-box ul{margin:0;padding-left:18px;color:var(--muted)}
+.aside-box li{margin:4px 0}
+.aside-box p{color:var(--muted);font-size:.97rem}
+@media (max-width:900px){.exp-grid{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{background:var(--ink);color:var(--bg)}
+.contact-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(28px,5vw,64px);align-items:end}
+.contact h2{font-size:clamp(2.4rem,6vw,4.4rem);letter-spacing:-.04em}
+.contact p{color:color-mix(in srgb,var(--bg) 75%,var(--ink));margin-top:18px;max-width:52ch;font-size:1.1rem}
+.contact .btn-primary{background:var(--bg);color:var(--ink)}
+.contact .btn-primary:hover{background:color-mix(in srgb,var(--bg) 85%,var(--accent));color:var(--ink)}
+.contact .btn-ghost{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 35%,var(--ink))}
+.contact .btn-ghost:hover{border-color:var(--bg);color:var(--bg)}
+.contact :focus-visible{outline-color:var(--bg)}
+.cdetails{display:grid;gap:0;border-top:1px solid color-mix(in srgb,var(--bg) 22%,var(--ink))}
+.cdetails div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--bg) 22%,var(--ink));font-size:.98rem}
+.cdetails dt{color:color-mix(in srgb,var(--bg) 62%,var(--ink))}
+.cdetails dd{margin:0;text-align:right;font-weight:600;word-break:break-word}
+.cdetails a{color:var(--bg)}
+.copied{font-size:.92rem;margin-left:4px;min-height:1.4em;display:inline-block}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+footer{background:var(--ink);color:color-mix(in srgb,var(--bg) 60%,var(--ink));font-size:.9rem;padding:22px 0 30px;border-top:1px solid color-mix(in srgb,var(--bg) 16%,var(--ink))}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+footer a{color:inherit}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .caret{animation:none}
+  .prompt-foot{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head" id="top">
+  <div class="wrap head-row">
+    <a class="logo" href="#hero" aria-label="Jonas Buenaobra, back to top">JONAS B<span>.</span></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="#contact">Get in touch</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 1. HERO -->
+<section class="hero" id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="avail"><i aria-hidden="true"></i>Available for remote work, full-time or part-time</p>
+      <h1>Jonas Buenaobra</h1>
+      <p class="hero-role" style="font-size:clamp(1.05rem,1.7vw,1.25rem);max-width:46ch;line-height:1.5">AI Data Annotation | AI UGC Ads | Prompt Engineering | AI Image &amp; Video Generator Specialist | AI Chatbot | AI Automation | E-commerce Specialist | Product Research | Graphic Designer | Customer Support</p>
+      <p class="hero-intro">I create AI images, videos and UGC-style ads for brands and affiliate marketers, write structured prompts that keep characters and products consistent, and annotate voice, image and video data for AI. I also built an AI customer support chatbot that handles customer questions, orders and concerns with accurate, helpful answers, and I’m developing my AI automation skills. I learn by building, testing and refining.</p>
+      <h2 style="font-size:clamp(1.6rem,3.2vw,2.3rem);margin:34px 0 -14px;letter-spacing:-.025em">Social Media AI Model Project</h2>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://www.facebook.com/Ravaesza" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>Ravaesza</a>
+        <a class="btn" href="https://www.tiktok.com/@ravaesza" target="_blank" rel="noopener noreferrer" style="background:#000;color:#fff;border-color:rgba(255,255,255,.18)"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .59.04.86.13V9.4a6.84 6.84 0 0 0-.86-.05A6.33 6.33 0 0 0 5.2 20.1a6.34 6.34 0 0 0 10.86-4.43V8.68a8.16 8.16 0 0 0 4.77 1.52V6.75a4.85 4.85 0 0 1-1.24-.06z"/></svg>Ravaesza</a>
+      </div>
+      <div class="hero-facts">
+        <span><b>Based in</b> the Philippines</span>
+        <span><b>Works</b> remotely, worldwide</span>
+        <span><b>Focus</b> generative AI and support</span>
+      </div>
+    </div>
+    <div>
+      <div class="prompt" role="img" aria-label="Example of a structured prompt for character-consistent product video, showing reference image, outfit, motion source, camera, lighting and negative prompt fields.">
+        <div class="prompt-top"><span class="dots" aria-hidden="true"><span></span><span></span><span></span></span><span><strong>Character-consistent product video</strong></span></div>
+        <pre id="promptText" aria-hidden="true"></pre>
+        <div class="prompt-foot" id="promptFoot" aria-hidden="true"><span class="ok">Output checked</span><span>Face drift found, negative prompt updated, iteration 3 approved</span></div>
+      </div>
+      <p class="prompt-caption">An example of how I structure prompts: separate sources for identity and motion, explicit camera and light, and a negative prompt tuned through testing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. ABOUT -->
+<section class="alt" id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>About me</h2>
+      <p>An AI-focused virtual assistant who builds skills through real projects, and is open about what’s still in progress.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="lead">I help businesses use AI to create content, answer customers and cut repetitive work.</p>
+        <p>My main work is generative AI content: product and commercial ad concepts, fashion and lifestyle content for affiliate marketing, cinematic video scenes and scene-by-scene storyboards. Most of that work depends on prompt engineering, especially keeping a character’s face, body, clothing and identity consistent across images and video, and transferring motion from a reference video without losing that identity.</p>
+        <p>Before focusing on AI, I worked as a customer service agent in the BPO industry, handling phone, email and chat support. I still run customer service for a family food business, where I also set up an AI support assistant on Meta to handle repetitive inquiries.</p>
+        <p>I studied Information Technology. I didn’t finish the degree, but it gave me a working understanding of software, databases, APIs and digital systems, which helps me pick up new AI tools quickly. I’m now building hands-on experience with AI workflow automation using n8n, OpenAI, Google Sheets, Gmail and Telegram.</p>
+        <p>I don’t present myself as an AI engineer or automation architect. I show what I can actually build, test, troubleshoot and improve, and I’m looking for teams that value that and are willing to help me grow.</p>
+      </div>
+      <aside>
+        <div class="method">
+          <h3>How I work</h3>
+          <ol>
+            <li><div><b>Build</b><span>Start from a clear brief and a structured first prompt or workflow.</span></div></li>
+            <li><div><b>Test</b><span>Generate, run and check the output against what was asked.</span></div></li>
+            <li><div><b>Troubleshoot</b><span>Find what drifted or broke: identity, motion, data, wording.</span></div></li>
+            <li><div><b>Refine</b><span>Adjust and repeat until the result is consistent and usable.</span></div></li>
+          </ol>
+          <div class="legend">
+            <h3>Experience labels on this site</h3>
+            <dl>
+              <div><dt><span class="lvl lvl-h">Hands-on</span></dt><dd>Skills I use regularly in my own work.</dd></div>
+              <div><dt><span class="lvl lvl-b">Built and in use</span></dt><dd>Systems I set up for a real business.</dd></div>
+              <div><dt><span class="lvl lvl-d">Developing</span></dt><dd>Skills I’m actively learning through practice projects.</dd></div>
+            </dl>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- 3. CORE SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Core skills</h2>
+      <p>Generative AI is where I’m strongest. Customer support is where I have the most years. Automation is what I’m building toward.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter skills by experience level">
+      <button class="filter" data-f="all" aria-pressed="true">All skills</button>
+      <button class="filter" data-f="h" aria-pressed="false">Hands-on</button>
+      <button class="filter" data-f="b" aria-pressed="false">Built and in use</button>
+      <button class="filter" data-f="d" aria-pressed="false">Developing</button>
+    </div>
+    <ul class="skill-list">
+      <li class="skill" data-l="h"><h3>Generative AI</h3><p>Creating images, video and written content with ChatGPT, Claude, Gemini, Meta AI and dedicated generation platforms.</p><span class="lvl lvl-h">Hands-on</span></li>
+      <li class="skill" data-l="h"><h3>Prompt engineering</h3><p>Structured prompts for character consistency, face and identity preservation, outfit replacement, motion control, cinematic scenes and negative prompting.</p><span class="lvl lvl-h">Hands-on</span></li>
+      <li class="skill" data-l="h"><h3>AI image and video generation</h3><p>Product visuals, cinematic scenes with camera direction, motion-controlled video and scene-by-scene storyboards.</p><span class="lvl lvl-h">Hands-on</span></li>
+      <li class="skill" data-l="h"><h3>AI UGC ads</h3><p>Creator-style, short-form product and fashion content for social media and affiliate promotion.</p><span class="lvl lvl-h">Hands-on</span></li>
+      <li class="skill" data-l="h"><h3>AI data annotation</h3><p>Annotating voice, image and video data, and reviewing AI outputs carefully against instructions, with the same eye for consistency I use in prompt testing.</p><span class="lvl lvl-h">Hands-on</span></li>
+      <li class="skill" data-l="b"><h3>AI chatbots</h3><p>Set up an AI customer support assistant on Meta for a real food business, covering inquiries, welcome messages and business information.</p><span class="lvl lvl-b">Built and in use</span></li>
+      <li class="skill" data-l="h"><h3>Customer support</h3><p>Phone, email, chat and Facebook Messenger support, from BPO work and ongoing support for a family food business.</p><span class="lvl lvl-h">Hands-on</span></li>
+      <li class="skill" data-l="h"><h3>E-commerce</h3><p>Order handling and delivery coordination, plus product-focused marketing and affiliate content.</p><span class="lvl lvl-h">Hands-on</span></li>
+      <li class="skill" data-l="h"><h3>Product research</h3><p>Understanding a product’s features and audience so it’s presented accurately in ad and affiliate content.</p><span class="lvl lvl-h">Hands-on</span></li>
+      <li class="skill" data-l="h"><h3>Graphic design</h3><p>Marketing visuals with attention to composition, lighting and visual consistency.</p><span class="lvl lvl-h">Hands-on</span></li>
+      <li class="skill" data-l="d"><h3>AI automation</h3><p>n8n workflows that connect OpenAI, Google Sheets, Gmail, Telegram and APIs to qualify leads and handle follow-ups.</p><span class="lvl lvl-d">Developing</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 4. AI & CREATIVE SERVICES -->
+<section class="alt" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>AI and creative services</h2>
+      <p>What I can produce for your brand, store or campaign. Every piece goes through testing and prompt refinement before it’s delivered.</p>
+    </div>
+    <div class="services">
+      <article class="svc feature">
+        <div class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></svg></div>
+        <h3>AI commercial advertisements</h3>
+        <p>Advertising-style visuals and short video concepts that present your product clearly and attractively.</p>
+        <ul><li>Product-focused composition and lighting</li><li>Cinematic camera direction</li><li>Lifestyle settings and product interaction</li></ul>
+      </article>
+      <article class="svc wide">
+        <div class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18h2"/></svg></div>
+        <h3>UGC-style and affiliate content</h3>
+        <p>Short-form, creator-style content for social media, including fashion and OOTD content with a consistent AI model.</p>
+        <ul><li>Outfit accuracy and natural movement</li><li>Built for affiliate and social promotion</li></ul>
+      </article>
+      <article class="svc">
+        <div class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <h3>AI image generation</h3>
+        <p>Product shots, model images and lifestyle scenes with a consistent look across a full set.</p>
+      </article>
+      <article class="svc">
+        <div class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg></div>
+        <h3>AI video and storyboards</h3>
+        <p>Motion-controlled scenes, camera direction and scene-by-scene storyboards for longer stories.</p>
+      </article>
+      <article class="svc">
+        <div class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M4 12h16M4 18h7"/><path d="M17 3l3 3-3 3"/></svg></div>
+        <h3>Prompt engineering</h3>
+        <p>Reusable, structured prompts for your team, including identity locks, reference prompting and negative prompts.</p>
+      </article>
+      <article class="svc wide">
+        <div class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3"/></svg></div>
+        <h3>AI voiceover and editing</h3>
+        <p>Narration with ElevenLabs or Google TTS, put together with visuals in CapCut for ready-to-post videos.</p>
+      </article>
+      <article class="svc wide">
+        <div class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
+        <h3>AI customer support setup</h3>
+        <p>An AI assistant for your page that answers common questions with your real business information, so your team handles fewer repetitive messages.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 5. CUSTOMER SERVICE -->
+<section id="support">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Customer service expertise</h2>
+      <p>Years of direct customer support, first in a high-volume BPO setting and now for a small business. It’s the reason my AI support work starts from real customer questions.</p>
+    </div>
+    <div class="cs-grid">
+      <div>
+        <ul class="comp">
+          <li><b>Customer inquiry handling</b><span>Answering questions about services, products, menus, pricing, hours, orders and delivery across several channels.</span></li>
+          <li><b>Problem-solving and complaint resolution</b><span>Handling complaints and resolving issues calmly in a high-volume environment.</span></li>
+          <li><b>Clear customer communication</b><span>Written and spoken communication built on phone, email and chat, plus saved replies and chat flows that keep answers consistent.</span></li>
+          <li><b>Sales support</b><span>Supported sales alongside customer and SIM/phone assistance in my BPO role.</span></li>
+          <li><b>Order and delivery coordination</b><span>Taking orders and coordinating deliveries for a food business through its Facebook page.</span></li>
+          <li><b>Consistent service quality</b><span>Structured, consistent responses and business announcements so customers get the same accurate information every time.</span></li>
+          <li><b>Multitasking under volume</b><span>Managing several conversations and tasks at once without losing accuracy.</span></li>
+        </ul>
+      </div>
+      <div class="cs-roles">
+        <article class="cs-role">
+          <span class="when">2020 to present</span>
+          <h3>Digital operations and customer support</h3>
+          <p class="where">Family food business, Philippines</p>
+          <ul>
+            <li>Run the Facebook page’s customer service, order handling and delivery coordination.</li>
+            <li>Created saved replies, chat flows and a system for business announcements.</li>
+            <li>Set up the Meta AI support assistant that now handles repetitive questions.</li>
+          </ul>
+        </article>
+        <article class="cs-role">
+          <span class="when">Before 2020</span>
+          <h3>Customer service agent</h3>
+          <p class="where">BPO industry, Philippines</p>
+          <ul>
+            <li>Handled customer support, sales and SIM/phone assistance by phone, email and chat.</li>
+            <li>Built communication, multitasking and issue-resolution skills in a high-volume environment.</li>
+          </ul>
+        </article>
+        <p class="bridge">Knowing which questions customers ask again and again is what makes an AI support assistant actually useful.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. AUTOMATION -->
+<section class="alt" id="automation">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>AI automation projects</h2>
+      <p>Two projects where I applied AI to real business tasks. One is live with a real business; the other is a working concept I built while developing my automation skills.</p>
+    </div>
+    <div class="auto">
+      <article class="proj">
+        <div class="proj-head">
+          <h3>AI customer support system for a food business</h3>
+          <span class="lvl lvl-b">Built and in use</span>
+        </div>
+        <div class="tools-line"><span class="tag">Meta AI</span><span class="tag">Facebook Messenger</span><span class="tag">Meta Business Suite</span></div>
+        <p>The business was spending hours every day answering the same questions about the menu, prices, opening hours and delivery. I set up an AI assistant on its Facebook page, fed with the real business information and the way customers usually ask, so common questions get answered right away.</p>
+        <div class="two-col">
+          <div>
+            <h4>What it covers</h4>
+            <ul class="checks"><li>Customer inquiries and welcome messages</li><li>Business information: menu, pricing, hours, delivery</li><li>Consistent, structured responses</li></ul>
+          </div>
+          <div>
+            <h4>Outcome</h4>
+            <ul class="checks"><li>Instant replies to customers, any time of day</li><li>Less repetitive manual messaging for the family</li><li>Still in active use</li></ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-head">
+          <h3>AI-assisted real estate lead qualification workflow</h3>
+          <span class="lvl lvl-d">Developing, hands-on concept</span>
+        </div>
+        <div class="tools-line"><span class="tag">n8n</span><span class="tag">OpenAI</span><span class="tag">Google Sheets</span><span class="tag">Gmail</span><span class="tag">Telegram</span></div>
+        <p>A workflow concept that cuts down manual lead processing: new leads are qualified by AI, logged, welcomed by email and followed up, while the agent gets notified on Telegram.</p>
+        <ol class="flow" aria-label="Workflow steps">
+          <li><div><b>Form submission</b><span>A customer fills in the inquiry form</span></div></li>
+          <li><div><b>AI qualification</b><span>OpenAI assesses the lead</span></div></li>
+          <li><div><b>Google Sheets</b><span>Lead data is logged</span></div></li>
+          <li><div><b>Welcome email</b><span>Sent through Gmail</span></div></li>
+          <li><div><b>Telegram alert</b><span>The agent is notified</span></div></li>
+          <li><div><b>Follow-up</b><span>Automatic follow-up message</span></div></li>
+          <li><div><b>Status check</b><span>Lead status is updated</span></div></li>
+        </ol>
+      </article>
+
+      <div class="learning"><b>Currently learning</b><span>n8n workflows, APIs, LLM integrations and AI-powered business processes, through building, testing and troubleshooting.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. PORTFOLIO -->
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Portfolio and projects</h2>
+      <p>My AI content work. The previews show how each project is structured; sample outputs are available on request.</p>
+    </div>
+    <div class="works">
+      <article class="work">
+        <div class="preview" aria-hidden="true">
+          <svg viewBox="0 0 400 300" fill="none">
+            <rect x="20" y="30" width="360" height="220" rx="10" stroke="#3A4680" stroke-width="2"/>
+            <path d="M140 30v220M260 30v220M20 103h360M20 177h360" stroke="#26305C" stroke-width="1.5" stroke-dasharray="4 6"/>
+            <ellipse cx="200" cy="205" rx="70" ry="12" fill="#1C2550"/>
+            <rect x="172" y="100" width="56" height="104" rx="12" fill="#9DB0FF"/>
+            <rect x="184" y="84" width="32" height="20" rx="4" fill="#C9D3FF"/>
+            <rect x="182" y="132" width="36" height="26" rx="3" fill="#111936" opacity=".55"/>
+            <path d="M330 60l-50 40" stroke="#F0C46C" stroke-width="2"/><circle cx="335" cy="56" r="10" fill="#F0C46C"/>
+            <path d="M60 220c40-30 60-30 90-10" stroke="#7FDDB3" stroke-width="2" stroke-dasharray="3 5"/>
+            <text x="34" y="54" fill="#7F8BB8" font-family="Instrument Sans, sans-serif" font-size="13">Product hero frame</text>
+            <text x="262" y="50" fill="#F0C46C" font-family="Instrument Sans, sans-serif" font-size="12">Key light</text>
+            <text x="44" y="240" fill="#7FDDB3" font-family="Instrument Sans, sans-serif" font-size="12">Slow orbit</text>
+          </svg>
+        </div>
+        <div class="work-body">
+          <span class="lvl lvl-h">Hands-on</span>
+          <h3 style="margin-top:12px">AI commercial advertisement</h3>
+          <p>AI-generated commercial concepts that present products through professional, advertising-style visuals and short video.</p>
+          <div class="focus"><span class="tag">Product presentation</span><span class="tag">Composition</span><span class="tag">Camera direction</span><span class="tag">Lighting</span><span class="tag">Lifestyle settings</span><span class="tag">Product interaction</span><span class="tag">Short-form ads</span></div>
+          <p class="shows"><b>What it shows:</b> I can plan and prompt a product ad from framing and lighting to camera movement, so the product looks premium and stays accurate.</p>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="preview" aria-hidden="true">
+          <svg viewBox="0 0 400 300" fill="none">
+            <g transform="translate(40 20)">
+              <rect width="120" height="230" rx="16" stroke="#3A4680" stroke-width="2"/>
+              <circle cx="60" cy="62" r="17" fill="#C9D3FF"/>
+              <path d="M36 90h48l8 62H28z" fill="#9DB0FF"/>
+              <path d="M34 152h52l-4 54H72l-12-40-12 40H38z" fill="#5C6DD6"/>
+              <text x="12" y="222" fill="#7F8BB8" font-family="Instrument Sans, sans-serif" font-size="11">Look 1</text>
+            </g>
+            <g transform="translate(200 20)">
+              <rect width="120" height="230" rx="16" stroke="#3A4680" stroke-width="2"/>
+              <circle cx="60" cy="62" r="17" fill="#C9D3FF"/>
+              <path d="M36 90h48l6 50H30z" fill="#F0C46C"/>
+              <path d="M30 140h60l10 66H20z" fill="#C79A4A"/>
+              <text x="12" y="222" fill="#7F8BB8" font-family="Instrument Sans, sans-serif" font-size="11">Look 2</text>
+            </g>
+            <path d="M168 132h24" stroke="#7FDDB3" stroke-width="2"/><path d="M186 126l6 6-6 6" stroke="#7FDDB3" stroke-width="2"/>
+            <text x="338" y="88" fill="#7FDDB3" font-family="Instrument Sans, sans-serif" font-size="12">Same</text>
+            <text x="338" y="104" fill="#7FDDB3" font-family="Instrument Sans, sans-serif" font-size="12">model</text>
+          </svg>
+        </div>
+        <div class="work-body">
+          <span class="lvl lvl-h">Hands-on</span>
+          <h3 style="margin-top:12px">AI affiliate OOTD content</h3>
+          <p>AI-generated fashion and lifestyle content for affiliate marketing and social media, with the same AI model across different outfits.</p>
+          <div class="focus"><span class="tag">Model consistency</span><span class="tag">Outfit accuracy</span><span class="tag">Natural movement</span><span class="tag">Fashion photography</span><span class="tag">Lifestyle settings</span><span class="tag">Short-form video</span></div>
+          <p class="shows"><b>What it shows:</b> I can produce UGC-style fashion content where the model stays recognizable and the outfit stays true to the real product.</p>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="preview" aria-hidden="true">
+          <svg viewBox="0 0 400 300" fill="none">
+            <rect x="20" y="40" width="110" height="140" rx="10" stroke="#3A4680" stroke-width="2"/>
+            <circle cx="75" cy="92" r="20" fill="#C9D3FF"/><path d="M45 160c4-28 56-28 60 0" fill="#9DB0FF"/>
+            <text x="20" y="200" fill="#9DB0FF" font-family="Instrument Sans, sans-serif" font-size="12">Character source</text>
+            <rect x="20" y="214" width="110" height="60" rx="10" stroke="#3A4680" stroke-width="2"/>
+            <path d="M40 254l20-22 18 14 18-20 18 28" stroke="#F0C46C" stroke-width="2"/>
+            <text x="20" y="292" fill="#F0C46C" font-family="Instrument Sans, sans-serif" font-size="12">Motion source</text>
+            <path d="M140 110c40 0 50 40 90 40M140 244c40 0 50-94 90-94" stroke="#3A4680" stroke-width="2"/>
+            <rect x="236" y="60" width="144" height="180" rx="12" stroke="#7FDDB3" stroke-width="2"/>
+            <circle cx="308" cy="110" r="22" fill="#C9D3FF"/><path d="M276 198c6-34 58-34 64 0" fill="#9DB0FF"/>
+            <path d="M262 214l26-18 20 12 22-22 26 26" stroke="#F0C46C" stroke-width="2" opacity=".8"/>
+            <text x="246" y="262" fill="#7FDDB3" font-family="Instrument Sans, sans-serif" font-size="12">Same identity, new motion</text>
+          </svg>
+        </div>
+        <div class="work-body">
+          <span class="lvl lvl-h">Hands-on</span>
+          <h3 style="margin-top:12px">AI character and motion consistency</h3>
+          <p>Structured prompts that transfer movement from a reference video to an AI-generated character while keeping that character’s visual identity.</p>
+          <div class="focus"><span class="tag">Reference image as character</span><span class="tag">Reference video as motion</span><span class="tag">Face preservation</span><span class="tag">Body and clothing consistency</span><span class="tag">Camera movement</span><span class="tag">Negative prompting</span></div>
+          <p class="shows"><b>What it shows:</b> I can solve one of the hardest problems in AI video, keeping a character the same person from scene to scene, through careful prompt structure and repeated testing.</p>
+        </div>
+      </article>
+    </div>
+    <p class="more-proj">Looking for my automation work? See the <a href="#automation">AI customer support system and lead qualification workflow</a>.</p>
+  </div>
+</section>
+
+<!-- 8. TOOLS -->
+<section class="alt" id="tools">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Tools and technologies</h2>
+      <p>The platforms I’ve worked with, grouped by what I use them for.</p>
+    </div>
+    <div class="toolgroups">
+      <div class="tg"><h3>Generative AI and LLMs</h3><p>Writing, ideation, prompt drafting and support content.</p><div class="chips"><span class="chip">ChatGPT</span><span class="chip">Claude</span><span class="chip">Gemini</span><span class="chip">Meta AI</span></div></div>
+      <div class="tg"><h3>AI image and video</h3><p>Visual generation, video scenes and storyboards.</p><div class="chips"><span class="chip">Google Flow</span><span class="chip">AI image generation platforms</span><span class="chip">AI video generation platforms</span><span class="chip">AI storyboarding tools</span></div></div>
+      <div class="tg"><h3>Voice and production</h3><p>Narration, voiceovers and final edits.</p><div class="chips"><span class="chip">ElevenLabs</span><span class="chip">Google TTS</span><span class="chip">CapCut</span></div></div>
+      <div class="tg"><h3>Customer support channels</h3><p>Where I handle customer conversations.</p><div class="chips"><span class="chip">Facebook Messenger</span><span class="chip">Meta Business Suite</span><span class="chip">Email</span><span class="chip">Phone</span><span class="chip">Live chat</span></div></div>
+      <div class="tg"><h3>Automation and productivity <span class="lvl lvl-d" style="margin-left:4px;vertical-align:2px">Developing</span></h3><p>Workflows and integrations I’m building experience with.</p><div class="chips"><span class="chip">n8n</span><span class="chip">OpenAI</span><span class="chip">Google Sheets</span><span class="chip">Gmail</span><span class="chip">Telegram</span><span class="chip">API integrations</span></div></div>
+    </div>
+    <p class="tool-note">My experience varies by platform. I’m strongest in practical generative AI content creation and prompt development, and I’m still expanding my technical skills in AI automation and API-based workflows.</p>
+  </div>
+</section>
+
+<!-- 9. EXPERIENCE & EDUCATION -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Experience and education</h2>
+      <p>AI content work today, built on a background in customer service and information technology.</p>
+    </div>
+    <div class="exp-grid">
+      <ol class="timeline">
+        <li class="tl">
+          <span class="when">Current</span>
+          <h3>AI content creator and prompt engineer</h3>
+          <p class="where">Freelance and independent AI projects, remote</p>
+          <ul>
+            <li>Write structured prompts that keep AI characters consistent across images and video scenes, including face, hairstyle, body, clothing and overall appearance.</li>
+            <li>Create outfit replacement prompts and motion control prompts that use reference videos while preserving the character’s identity.</li>
+            <li>Produce AI commercial ads, product marketing videos and affiliate fashion and lifestyle content.</li>
+            <li>Develop cinematic scenes with detailed camera, lighting, environment and composition instructions, and scene-by-scene storyboards.</li>
+            <li>Build narration and voiceover workflows with AI voice tools.</li>
+            <li>Test outputs, find inconsistencies and refine prompts to improve quality and reliability.</li>
+          </ul>
+        </li>
+        <li class="tl">
+          <span class="when">2020 to present</span>
+          <h3>Digital operations and customer support</h3>
+          <p class="where">Family food business, Philippines</p>
+          <ul>
+            <li>Handle Facebook page operations, customer service, orders and delivery coordination.</li>
+            <li>Created saved replies, chat flows and business announcements, and set up a Meta AI customer support assistant.</li>
+          </ul>
+        </li>
+        <li class="tl">
+          <span class="when">Before 2020</span>
+          <h3>Customer service agent</h3>
+          <p class="where">BPO industry, Philippines</p>
+          <ul>
+            <li>Provided customer support, sales and SIM/phone assistance by phone, email and chat in a high-volume environment.</li>
+          </ul>
+        </li>
+        <li class="tl edu">
+          <span class="when">Education</span>
+          <h3>BS in Information Technology (incomplete)</h3>
+          <p class="where">Philippines</p>
+          <p class="d">Studied software, databases, application development, networking and digital systems. This foundation helps me understand APIs, data and automation platforms, and supported my move into practical AI work.</p>
+        </li>
+      </ol>
+      <aside>
+        <div class="aside-box">
+          <h3>Roles I’m open to</h3>
+          <div class="chips">
+            <span class="chip">AI virtual assistant</span><span class="chip">AI content creator</span><span class="chip">Generative AI specialist</span><span class="chip">AI prompt engineer</span><span class="chip">AI image generation specialist</span><span class="chip">AI video generation specialist</span><span class="chip">AI content production assistant</span><span class="chip">AI marketing content assistant</span><span class="chip">AI affiliate content specialist</span><span class="chip">Junior AI automation assistant</span><span class="chip">Customer support with AI tools</span>
+          </div>
+        </div>
+        <div class="aside-box">
+          <h3>Professional strengths</h3>
+          <ul>
+            <li>Fast learner of new AI tools and platforms</li>
+            <li>Strong attention to visual and content consistency</li>
+            <li>Problem-solving mindset, willing to test and iterate</li>
+            <li>Experience applying AI to real business processes</li>
+            <li>Clear, patient customer communication</li>
+          </ul>
+        </div>
+        <div class="aside-box">
+          <h3>What I’m looking for</h3>
+          <p>Full-time or part-time remote work, ideally with a team that offers training and room to grow into more advanced AI responsibilities. I’m also open to other AI roles that let me learn.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- 10. CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <h2>Let’s work on your next project.</h2>
+      <p>Need AI ad content, consistent AI visuals, prompt work, or help with customer support? Send me a short note about what you need and I’ll reply with how I can help.</p>
+      <div class="channels" aria-label="Contact links" style="margin-top:32px">
+        <a class="channel" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=jonbuenaobra07@gmail.com&amp;su=Project%20inquiry" target="_blank" rel="noopener noreferrer" style="background:#fff;color:#202124;border-color:#fff;text-decoration:none"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M1.6 21h3.8v-9.2L0 7.7v11.7c0 .9.7 1.6 1.6 1.6z"/><path fill="#34A853" d="M18.6 21h3.8c.9 0 1.6-.7 1.6-1.6V7.7l-5.4 4.1z"/><path fill="#FBBC04" d="M18.6 4.6v7.2L24 7.7V5.5c0-2-2.3-3.1-3.9-1.9z"/><path fill="#EA4335" d="M5.4 11.8V4.6L12 9.5l6.6-4.9v7.2L12 16.7z"/><path fill="#C5221F" d="M0 5.5v2.2l5.4 4.1V4.6L3.9 3.5C2.3 2.4 0 3.5 0 5.5z"/></svg>Send me an email</a>
+        <a class="channel" href="https://www.linkedin.com/in/jon-buenaobra-0b102140a/" target="_blank" rel="noopener noreferrer" style="color:var(--ink);text-decoration:none"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a>
+        <a class="channel" href="https://www.upwork.com/freelancers/~01cd9130f0b0048a71" target="_blank" rel="noopener noreferrer" style="color:var(--ink);text-decoration:none"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.56 13.16c-1.1 0-2.13-.47-3.07-1.23l.23-1.08.01-.04c.2-1.14.85-3.06 2.84-3.06 1.49 0 2.7 1.21 2.7 2.7 0 1.49-1.21 2.7-2.7 2.7zm0-8.14c-2.54 0-4.51 1.65-5.31 4.37-1.22-1.84-2.15-4.04-2.69-5.9H7.83v7.11c0 1.41-1.14 2.55-2.55 2.55s-2.54-1.14-2.54-2.55V3.49H0v7.11c0 2.92 2.37 5.31 5.28 5.31 2.91 0 5.28-2.39 5.28-5.31v-1.19c.53 1.11 1.18 2.23 1.98 3.22l-1.68 7.88h2.8l1.21-5.71c1.06.68 2.29 1.11 3.69 1.11 3 0 5.44-2.45 5.44-5.45 0-3-2.44-5.44-5.44-5.44z"/></svg>Upwork</a>
+        <a class="channel" href="https://github.com/JonB712" target="_blank" rel="noopener noreferrer" style="color:var(--ink);text-decoration:none"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.6.2 2.9.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>GitHub</a>
+      </div>
+    </div>
+    <dl class="cdetails">
+      <div><dt>Location</dt><dd>Philippines</dd></div>
+      <div><dt>Work setup</dt><dd>Remote only</dd></div>
+      <div><dt>Availability</dt><dd>Full-time or part-time</dd></div>
+      <div><dt>Working hours</dt><dd>Open anytime, flexible across time zones</dd></div>
+    </dl>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> Jonas Buenaobra. AI content creation, prompt engineering and customer support.</span>
+    <a href="#hero">Back to top</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Skill filters
+  var filters=document.querySelectorAll('.filter'),skills=document.querySelectorAll('.skill');
+  filters.forEach(function(f){f.addEventListener('click',function(){
+    filters.forEach(function(x){x.setAttribute('aria-pressed','false')});
+    f.setAttribute('aria-pressed','true');
+    var v=f.dataset.f;
+    skills.forEach(function(s){s.hidden=!(v==='all'||s.dataset.l===v)});
+  })});
+
+  // Copy email
+  var copyBtn=document.getElementById('copyBtn'),msg=document.getElementById('copyMsg');
+  if(copyBtn)copyBtn.addEventListener('click',function(){
+    var email='jonbuenaobra07@gmail.com';
+    function done(t){msg.textContent=t;setTimeout(function(){msg.textContent=''},2600)}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(email).then(function(){done('Email copied')},function(){done(email)});
+    }else{done(email)}
+  });
+
+  document.getElementById('yr').textContent=new Date().getFullYear();
+
+  // Hero prompt typing
+  var lines=[
+    ['task','product showcase, short-form ad, 9:16'],
+    ['character','ref_image_01 (keep face, hair, body build)'],
+    ['outfit','replace with linen two-piece, keep identity'],
+    ['motion','ref_video_02 (copy movement only)'],
+    ['camera','slow push-in, eye level, shallow focus'],
+    ['light','soft window light, warm late afternoon'],
+    ['negative','face drift, extra fingers, warped text, logo artifacts']
+  ];
+  var pre=document.getElementById('promptText'),foot=document.getElementById('promptFoot');
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  function render(n,partial){
+    var out='<span class="c"># structured prompt, iteration 3</span>\n';
+    for(var i=0;i<n;i++)out+='<span class="k">'+lines[i][0]+':</span> '+esc(lines[i][1])+'\n';
+    if(partial!==undefined)out+='<span class="k">'+lines[n][0]+':</span> '+esc(partial)+'<span class="caret"></span>';
+    pre.innerHTML=out;
+  }
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){render(lines.length);foot.classList.add('show');return;}
+  var li=0,ci=0;
+  render(0,'');
+  function tick(){
+    if(li>=lines.length){render(lines.length);pre.innerHTML+='<span class="caret"></span>';setTimeout(function(){foot.classList.add('show')},350);return;}
+    var txt=lines[li][1];
+    ci++;
+    if(ci>txt.length){li++;ci=0;
+      if(li<lines.length)render(li,'');
+      setTimeout(tick,260);return;}
+    render(li,txt.slice(0,ci));
+    setTimeout(tick,18+Math.random()*26);
+  }
+  setTimeout(tick,500);
+})();
+</script>
+</body>
+</html>
